@@ -7,9 +7,9 @@
 }
 
 body {
-    background-color:white;
+    background-color:#D9D9D9;
     font-family: verdana;
-    color: black;
+    color: #545454;
     font-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -18,13 +18,21 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
-/* index.html classes */
+
+button {
+    display: flex;
+    float: right;
+}
+
 .contentBox {
-    display: block;
-    margin-top: 10%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
     padding: 20px;
 }
 
+/* index.html classes */
 #indexText {
     text-align: center;
     font-size:large;
