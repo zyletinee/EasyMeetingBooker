@@ -6,21 +6,31 @@
         <title>EasyMeetingBooker</title>
     </header>
     <body>
-        <!--navbar placeholder-->
-        <div id="navbar-container">
-            <div id="placeholder">
-            <nav>
-                <!--put links in here!-->
-            </nav>    
-
+        <!-- nav -->
+        <script src="/navbar.js" defer></script>
+        <div class="navbar-container">
+            <div class="profileContainer">
+                <img src="assets/luka_test.jpg" class="profileImage">
             </div>
-            
+            <a href="login.html" class="navButton">
+                Login
+            </a>
+            <a href="signUp.html" class="navButton">
+                Sign Up
+            </a>
+            <img src="logo_placeholder">
         </div>
 
         <!--page content-->
-        <div class="contentBox">
-            <div id="indexText">
-                Sign up or login to make and view bookings.
+        <div class="pageDisplay">
+            <aside>
+                <a href="#" class="asideButton">Book a Meeting</a>
+                <a href="#" class="asideButton">View or Edit a Meeting</a>
+            </aside>
+            <div class="contentBox">
+                <div id="indexText">
+                    <p>Sign up or login to make and view bookings.</p>
+                </div>
             </div>
         </div>
         <!--footer-->
