@@ -45,7 +45,7 @@ button {
 /* aside */
 
 aside {
-    background-color: #ffffff;
+    background-color: #8CC6EA;
     width: 15%;
     height: 720px;
     float: left;
@@ -54,9 +54,9 @@ aside {
 }
 
 .asideButton {
-    background-color: #ffffff; 
+    background-color: #8CC6EA; 
     border: none;
-    color: #545454;
+    color: #ffffff;
     height: 70px;
     width: auto;
     text-align: center;
@@ -117,3 +117,10 @@ aside {
 
 /* signUp classes */
 
+/* login classes */
+#loginButton {
+    width: 10%;
+    height: 5%;
+    background-color:#61A9D5;
+    text-decoration: none;
+}
