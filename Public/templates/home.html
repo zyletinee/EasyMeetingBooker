@@ -33,10 +33,26 @@
         <div class="pageDisplay">
             <aside>
                 <a href="book.html" class="asideButton">Book a Meeting</a>
-                <a href="editViewBooking.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="viewBooking.html" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
-                <!--password form-->
+                <div id="indexText">
+                    <p>Welcome back, {{Username}}.</p>
+                </div>
+                <hr>
+                <div class="meetings">
+                    {% if upcomingMeetings %}
+                        <ul>
+                            {% for meeting in upcomingMeetings %}
+                            <li>
+                                <a href="/Public/editBooking/{{meeting.id}}/">{{ meeting.Date }} {{ meeting.Time }} {{ meeting.Room }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>No meetings soon!</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
         <script src="navbar.js"></script>
