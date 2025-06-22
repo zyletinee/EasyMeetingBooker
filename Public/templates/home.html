@@ -14,16 +14,10 @@
                         <img src="assets/luka_test.jpg" class="profileImage">
                     </div>
                     <div class="dropdownContent">
-                        <a href="settings.html" class="dropdownItem">Settings</a>
-                        <a href="index.html" class="dropdownItem">Log Out</a>
+                        <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
+                        <a href="{% url 'index' %}" class="dropdownItem">Log Out</a>
                     </div>
                 </div>
-                <a href="login.html" class="navButton">
-                    Login
-                </a>
-                <a href="signUp.html" class="navButton">
-                    Sign Up
-                </a>
             </div>
             <div class="logoContainer">
                 <img class="logo" src="assets/EasyBook.png">    
@@ -32,8 +26,8 @@
         <!--page content-->
         <div class="pageDisplay">
             <aside>
-                <a href="book.html" class="asideButton">Book a Meeting</a>
-                <a href="viewBooking.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'book' %}" class="asideButton">Book a Meeting</a>
+                <a href="{% url 'viewBooking' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                 <div id="indexText">
@@ -45,7 +39,7 @@
                         <ul>
                             {% for meeting in upcomingMeetings %}
                             <li>
-                                <a href="/Public/editBooking/{{meeting.id}}/">{{ meeting.Date }} {{ meeting.Time }} {{ meeting.Room }}</a>
+                                <a href="{% url 'editBooking' meeting.id %}">{{ meeting.Date }} {{ meeting.Time }} {{ meeting.Room }}</a>
                             </li>
                             {% endfor %}
                         </ul>

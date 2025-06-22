@@ -14,16 +14,10 @@
                         <img src="assets/luka_test.jpg" class="profileImage">
                     </div>
                     <div class="dropdownContent">
-                        <a href="settings.html" class="dropdownItem">Settings</a>
-                        <a href="index.html" class="dropdownItem">Log Out</a>
+                        <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
+                        <a href="{% url 'index' %}" class="dropdownItem">Log Out</a>
                     </div>
                 </div>
-                <a href="login.html" class="navButton">
-                    Login
-                </a>
-                <a href="signUp.html" class="navButton">
-                    Sign Up
-                </a>
             </div>
             <div class="logoContainer">
                 <img class="logo" src="assets/EasyBook.png">    
