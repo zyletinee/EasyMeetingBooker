@@ -38,7 +38,6 @@ h1, h2 {
 aside {
     background-color: #8CC6EA;
     width: 15%;
-    height: 720px;
     float: left;
     display: flex;
     flex-direction: column;
@@ -157,7 +156,7 @@ aside {
 /* signUp classes */
 
 fieldset {
-    border: 0;  
+    border: none !important;
 }
 
 /* login classes */

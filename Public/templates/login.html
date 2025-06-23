@@ -17,14 +17,14 @@
                 </a>
             </div>
             <div class="logoContainer">
-                <img class="logo" src="assets/EasyBook.png">
-            </div>            
+                <img class="logo" src="{% static 'images/EasyBook.png' %}">
+            </div>   
         </div>
         <!--page content-->
         <div class="pageDisplay">
             <aside>
-                <a href="login.html" class="asideButton">Book a Meeting</a>
-                <a href="login.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'login'}" class="asideButton">Book a Meeting</a>
+                <a href="{% url 'login' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                 <div class="formTitle">
@@ -32,14 +32,14 @@
                 </div>
                 <form class="signUpForm" action="{% url 'home' %}" method="post">
                     {% csrf_token %}
-                    <fieldset>
-                        <legend><h2>Username:</h2></legend>
+                    <div class="formBox">
+                        <h2>Username:</h2>
                         <input type="text" id="usernameLogin" name="usernameLogin">
-                    </fieldset>
-                    <fieldset>
-                        <legend><h2>Password:</h2></legend>
+                    </div>
+                    <div class="formBox">
+                        <h2>Password:</h2>
                         <input type="password" id="passwordLogin" name="passwordLogin">
-                    </fieldset><br>
+                    </div><br>
                     <input type="submit" value="Login">
                 </form>
             </div>

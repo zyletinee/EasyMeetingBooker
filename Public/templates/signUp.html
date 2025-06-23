@@ -18,7 +18,7 @@
                 </a>
             </div>
             <div class="logoContainer">
-                <img class="logo" src="assets/EasyBook.png">
+                <img class="logo" src="{% static 'images/EasyBook.png' %}">
             </div>            
         </div>
 
@@ -34,16 +34,16 @@
                 </div>
                 <form class="signUpForm" action="{% url 'home' %}" method="post">
                     {% csrf_token %}
-                    <fieldset>
-                        <legend><h2>Username:</h2></legend>
+                    <div class="formBox">
+                        <h2>Username:</h2>
                         <input type="text" id="usernameSignUp" name="usernameSignUp">
                         <p>Must not exceed 15 characters, and must only contain alphanumeric characters.</p>
-                    </fieldset>
-                    <fieldset>
-                        <legend><h2>Password:</h2></legend>
+                    </div>
+                    <div class="formBox">
+                        <h2>Password:</h2>
                         <input type="password" id="passwordSignUp" name="passwordSignUp">
                         <p>Must contain upper and lower case letters, at least one number and at least one symbol.</p>
-                    </fieldset><br>
+                    </div><br>
                     <input type="submit" value="Sign up!">
                 </form>
             </div>
