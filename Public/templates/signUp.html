@@ -32,20 +32,39 @@
                 <div>   
                     <h1>Create an Account</h1>
                 </div>
-                <form class="signUpForm" action="{% url 'home' %}" method="post">
+                <form class="signUpForm" action="{% url 'signUp' %}" method="post">
                     {% csrf_token %}
-                    <div class="formBox">
-                        <h2>Username:</h2>
-                        <input type="text" id="usernameSignUp" name="usernameSignUp">
-                        <p>Must not exceed 15 characters, and must only contain alphanumeric characters.</p>
+                    <h2>{{ form.username.label_tag }}</h2>
+                    {{ form.username }}<br>
+                    <p>Must be 150 characters or fewer. Must contain letters, digits or @/./+/-/_ only.</p>
+                    {{ form.username.errors }}
+                    
+                    <h2>{{ form.password1.label_tag }}</h2>
+                    {{ form.password1 }}<br><br>
+                    <div class="passwordRules">
+                        <b>The following rules must be satisfied:</b>
+                        <ul>
+                            <li>Cannot be similar to other personal information.</li>
+                            <li>Must contain at least 8 characters.</li>
+                            <li>Cannot be a commonly used password.</li>
+                            <li>Cannot only be numbers.</li>
+                        </ul>
                     </div>
-                    <div class="formBox">
-                        <h2>Password:</h2>
-                        <input type="password" id="passwordSignUp" name="passwordSignUp">
-                        <p>Must contain upper and lower case letters, at least one number and at least one symbol.</p>
-                    </div><br>
-                    <input type="submit" value="Sign up!">
+                    {{ form.password1.errors }}
+
+                    <h2>{{ form.password2.label_tag }}</h2>
+                    {{ form.password2 }}<br>
+                    <p>Type your password again to verify.</p>
+                    {{ form.password2.errors }}
+
+                    <input class="submitButton" type="submit" value="Sign up!">
                 </form>
+
+                {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                {% endif %}
             </div>
         </div>
     </body>

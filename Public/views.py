@@ -1,21 +1,35 @@
 # Create your views here.
 
-from django.http import HttpResponse
 from .models import Meetings
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib import messages
 
 def index(request):
     return render(request, "index.html")
 
 def home(request):
-    upcomingMeetings = Meetings.objects.order_by("-Date")[:3]
+    upcomingMeetings = Meetings.objects.order_by("-date")[:3]
     context = {"upcomingMeetings":upcomingMeetings}
     return render(request, "home.html", context)
 
 def signUp(request):
-    return render(request, "signUp.html")
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, "Account created successfully.")
+            login(request, user)
+            return redirect("home")
+        else:
+            messages.error(request, "Please fix the errors above.")
+    else:
+        form = UserCreationForm()
 
-def login(request):
+    return render(request, "signUp.html", {"form": form})
+
+def loginView(request):
     return render(request, "login.html")
 
 def settings(request):

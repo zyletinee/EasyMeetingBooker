@@ -34,11 +34,11 @@
                     {% csrf_token %}
                     <div class="formBox">
                         <h2>Username:</h2>
-                        <input type="text" id="usernameLogin" name="usernameLogin">
+                        <input type="text" id="usernameLogin" name="usernameLogin" required>
                     </div>
                     <div class="formBox">
                         <h2>Password:</h2>
-                        <input type="password" id="passwordLogin" name="passwordLogin">
+                        <input type="password" id="passwordLogin" name="passwordLogin" required>
                     </div><br>
                     <input type="submit" value="Login">
                 </form>

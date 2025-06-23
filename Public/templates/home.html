@@ -12,7 +12,7 @@
             <div class="navItemContainer">
                 <div class="dropdownContainer">
                     <div class="profileContainer">
-                        <img src="assets/luka_test.jpg" class="profileImage">
+                        <img src="{% static 'images/luka_test.jpg' %}" class="profileImage">
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
@@ -32,7 +32,7 @@
             </aside>
             <div class="contentBox">
                 <div id="indexText">
-                    <p>Welcome back, {{Username}}.</p>
+                    <p>Welcome back, {{user.username}}.</p>
                 </div>
                 <hr>
                 <div class="meetings">
@@ -40,7 +40,7 @@
                         <ul>
                             {% for meeting in upcomingMeetings %}
                             <li>
-                                <a href="{% url 'editBooking' meeting.id %}">{{ meeting.Date }} {{ meeting.Time }} {{ meeting.Room }}</a>
+                                <a href="{% url 'editBooking' meeting.id %}">{{ meeting.date }} {{ meeting.room }}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <script src="{% static navbar.js %}"></script>
+        <script src="{% static 'navbar.js' %}"></script>
         <!--footer-->
     </body>
 </html>
