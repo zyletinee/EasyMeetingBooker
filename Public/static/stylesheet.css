@@ -156,7 +156,9 @@ aside {
 
 /* signUp classes */
 
-
+fieldset {
+    border: 0;  
+}
 
 /* login classes */
 #loginButton {

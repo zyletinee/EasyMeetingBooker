@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--this is the page you get when opening the website logged out.-->
 <html>
-    <link rel="stylesheet" href="stylesheet.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
     <header>
         <title>Sign Up - EasyMeetingBooker</title>
     </header>
@@ -24,26 +25,27 @@
         <!--page content-->
         <div class="pageDisplay">
             <aside>
-                <a href="signUp.html" class="asideButton">Book a Meeting</a>
-                <a href="signUp.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'signUp' %}" class="asideButton">Book a Meeting</a>
+                <a href="{% url 'signUp' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
-                <div>
+                <div>   
                     <h1>Create an Account</h1>
                 </div>
-                <div class="usernameForm">
-                    <h2>Username</h2>
-                    <form></form>
-                    <p>Must not exceed 16 characters, and must only contain alphanumeric characters.</p>
-                </div>
-                <div class="passwordForm">
-                    <h2>Password</h2>
-                    <form></form>
-                    <p>Must contain upper and lower case letters, at least one number and at least one symbol.</p>
-                </div>
-                <button class="signUpButton">
-
-                </button>
+                <form class="signUpForm" action="{% url 'home' %}" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend><h2>Username:</h2></legend>
+                        <input type="text" id="usernameSignUp" name="usernameSignUp">
+                        <p>Must not exceed 15 characters, and must only contain alphanumeric characters.</p>
+                    </fieldset>
+                    <fieldset>
+                        <legend><h2>Password:</h2></legend>
+                        <input type="password" id="passwordSignUp" name="passwordSignUp">
+                        <p>Must contain upper and lower case letters, at least one number and at least one symbol.</p>
+                    </fieldset><br>
+                    <input type="submit" value="Sign up!">
+                </form>
             </div>
         </div>
     </body>

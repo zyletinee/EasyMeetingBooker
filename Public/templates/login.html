@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="stylesheet.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
     <header>
         <title>Login - EasyMeetingBooker</title>
     </header>
@@ -29,15 +30,18 @@
                 <div class="formTitle">
                     <h1>Login</h1>
                 </div>
-                <div class="login">
-                    <form action="home.html">
-                        <label for="username">Username</label><br>
-                            <input type="text" id="fname" name="fname" value=""><br>
-                        <label for="password">Password</label><br>
-                            <input type="text" id="lname" name="lname" value=""><br><br>
-                        <input id="loginButton" type="submit" value="Login">
-                    </form> 
-                </div>
+                <form class="signUpForm" action="{% url 'home' %}" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend><h2>Username:</h2></legend>
+                        <input type="text" id="usernameLogin" name="usernameLogin">
+                    </fieldset>
+                    <fieldset>
+                        <legend><h2>Password:</h2></legend>
+                        <input type="password" id="passwordLogin" name="passwordLogin">
+                    </fieldset><br>
+                    <input type="submit" value="Login">
+                </form>
             </div>
         </div>
     </body>

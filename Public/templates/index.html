@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!--this is the page you get when opening the website logged out.-->
 <html>
-    <link rel="stylesheet" href="stylesheet.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
     <header>
         <title>EasyMeetingBooker</title>
     </header>
@@ -24,8 +25,8 @@
         <!--page content-->
         <div class="pageDisplay">
             <aside>
-                <a href="signUp.html" class="asideButton">Book a Meeting</a>
-                <a href="signUp.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'signUp' %}" class="asideButton">Book a Meeting</a>
+                <a href="{% url 'signUp' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                 <div id="indexText">

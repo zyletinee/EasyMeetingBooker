@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <!--importing files-->
-    <link rel="stylesheet" href="stylesheet.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
     <header>
         <title>EasyMeetingBooker - Home</title>
     </header>
@@ -26,8 +27,8 @@
         <!--page content-->
         <div class="pageDisplay">
             <aside>
-                <a href="book.html" class="asideButton">Book a Meeting</a>
-                <a href="viewBooking.html" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'book' %}" class="asideButton">Book a Meeting</a>
+                <a href="{% url 'signUp' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                     <h1 class="formTitle">
