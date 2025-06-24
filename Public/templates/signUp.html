@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--this is the page you get when opening the website logged out.-->
 <html>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
-    <header>
+    <head>
+        {% load static %}
         <title>Sign Up - EasyMeetingBooker</title>
-    </header>
+        <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    </head>
     <body>
         <!-- nav -->
         <div class="navbarContainerIndex">
@@ -35,8 +35,12 @@
                 <form class="signUpForm" action="{% url 'signUp' %}" method="post">
                     {% csrf_token %}
                     <h2>{{ form.username.label_tag }}</h2>
-                    {{ form.username }}<br>
-                    <p>Must be 150 characters or fewer. Must contain letters, digits or @/./+/-/_ only.</p>
+                    {{ form.username }}<br><br>
+                    <b>The following rules must be satisfied:</b>
+                    <ul>
+                        <li>Must be 150 characters or fewer.</li> 
+                        <li>Must contain letters, digits or @/./+/-/_ only.</li>
+                    </ul>
                     {{ form.username.errors }}
                     
                     <h2>{{ form.password1.label_tag }}</h2>

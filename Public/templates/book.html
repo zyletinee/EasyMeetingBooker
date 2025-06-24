@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
-    <header>
-        <title>EasyMeetingBooker - Book a Room</title>
-    </header>
+    <head>
+        {% load static %}
+        <title>Book - EasyMeetingBooker</title>
+        <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    </head>
     <body>
         <!-- nav -->
         <div class="navbarContainerHome">
             <div class="navItemContainer">
                 <div class="dropdownContainer">
                     <div class="profileContainer">
-                        <img src="assets/luka_test.jpg" class="profileImage">
+                        <img src="{% static 'images/defaultPfp.jpg' %}" class="profileImage">
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
@@ -28,24 +28,30 @@
         <div class="pageDisplay">
             <aside>
                 <a href="{% url 'book' %}" class="asideButton">Book a Meeting</a>
-                <a href="{% url 'signUp' %}" class="asideButton">View or Edit a Meeting</a>s
+                <a href="{% url 'viewBooking' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                 <h1>
                     Make a Booking
                 </h1>
-                <h2>
-                    1. Choose a day
-                </h2>
-                <h2>
-                    2. Choose a time
-                </h2>
-                <h2>
-                    3. Choose a room
-                </h2>
-                <h2>
-                    4. Confirm Details
-                </h2>
+                <form action="{% url 'book' %}" method="POST">
+                    {% csrf_token %}
+                    <h2>1. Choose a day & time</h2>
+                        <input type="datetime-local" id="bookingDate" name="bookingDate">
+                    <h2>2. Choose a room</h2>
+                        <input type="radio" id="room1" name="roomSelection" value="1">
+                        <label for="room1">Room 1</label><br><br>
+                        <input type="radio" id="room2" name="roomSelection" value="2">
+                        <label for="room2">Room 2</label><br><br>
+                        <input type="radio" id="room3" name="roomSelection" value="3">
+                        <label for="room3">Room 3</label><br><br>
+                    <input type="submit" value="Book!" class="submitButton">
+                </form>
+                {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                {% endif %}
             </div>
         </div>
         <script src="{% static 'navbar.js' %}"></script>

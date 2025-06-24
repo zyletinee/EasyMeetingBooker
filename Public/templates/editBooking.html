@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
-    <header>
-        <title>EasyMeetingBooker - View Bookings</title>
-    </header>
+    <head>
+        {% load static %}
+        <title>Edit Booking - EasyMeetingBooker</title>
+        <link rel="stylesheet" href="{% static 'stylesheet.css' %}">
+    </head>
     <body>
         <!-- nav -->
         <div class="navbarContainerHome">
             <div class="navItemContainer">
                 <div class="dropdownContainer">
                     <div class="profileContainer">
-                        <img src="assets/luka_test.jpg" class="profileImage">
+                        <img src="{% static 'images/defaultPfp.jpg' %}" class="profileImage">
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
@@ -28,7 +28,7 @@
         <div class="pageDisplay">
             <aside>
                 <a href="{% url 'book' %}" class="asideButton">Book a Meeting</a>
-                <a href="{% url 'signUp' %}" class="asideButton">View or Edit a Meeting</a>
+                <a href="{% url 'viewBooking' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
                 <h1>Edit Booking</h1>
