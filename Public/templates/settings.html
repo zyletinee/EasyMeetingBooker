@@ -15,7 +15,10 @@
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
-                        <a href="{% url 'index' %}" class="dropdownItem">Log Out</a>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdownItem" style="width: 100%">Log Out</button>
+                        </form>
                     </div>
                 </div>
             </div>

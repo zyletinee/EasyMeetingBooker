@@ -7,14 +7,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import make_aware
-from datetime import timedelta, timezone
+from datetime import timedelta
+from django.utils import timezone
 
 def index(request):
     return render(request, "index.html")
 
 @login_required
 def home(request):
-    upcomingMeetings = Meetings.objects.order_by("-date")[:3]
+    upcomingMeetings = Meetings.objects.order_by("date")[:3]
     context = {"upcomingMeetings":upcomingMeetings}
     return render(request, "home.html", context)
 
@@ -98,5 +99,45 @@ def book(request):
 
 @login_required
 def editBooking(request, meetingID):
-    meeting = get_object_or_404(Meetings, pk=meetingID)
-    return render(request, "editBooking.html", {"meeting":meeting})
+ # Get the meeting and ensure it belongs to the logged-in user
+    meeting = get_object_or_404(Meetings, id=meetingID, userID=request.user)
+
+    if request.method == 'POST':
+        date_str = request.POST.get('bookingDate')
+        room = request.POST.get('roomSelection')
+
+        # Check all fields are filled
+        if not date_str or not room:
+            messages.error(request, "Please fill in all fields.")
+            return render(request, 'editBooking.html', {'meeting': meeting})
+
+        try:
+            bookingDate = timezone.datetime.fromisoformat(date_str)
+            bookingDate = timezone.make_aware(bookingDate)
+        except ValueError:
+            messages.error(request, "Invalid date format.")
+            return render(request, 'editBooking.html', {'meeting': meeting})
+
+        room = int(room)
+
+        # Check for meetings before or after inputted time
+        beforeMeeting = bookingDate - timedelta(hours=1)
+        afterMeeting = bookingDate + timedelta(hours=1)
+
+        overlap = Meetings.objects.filter(
+            room=room,
+            date__range=(beforeMeeting, afterMeeting)
+        ).exists()
+
+        if overlap:
+            messages.error(request, "This room is already booked within an hour of your new time.")
+            return render(request, 'editBooking.html', {'meeting': meeting})
+
+        # Update the meeting
+        meeting.date = bookingDate
+        meeting.room = room
+        meeting.save()
+
+        messages.success(request, "Booking updated successfully!")
+        return redirect('viewBooking')
+    return render(request, 'editBooking.html', {'meeting': meeting})

@@ -16,9 +16,9 @@
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
-                        <form action="{% url 'logout' %}" method="post" class="dropdownItem">
+                        <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="dropdownItem">Log Out</button>
+                            <button type="submit" class="dropdownItem" style="width: 100%">Log Out</button>
                         </form>
                     </div>
                 </div>
@@ -37,22 +37,23 @@
             </aside>
             <div class="contentBox">
                 <div id="indexText">
-                    <p>Welcome back, {{user.username}}.</p>
+                    <p>Welcome back, {{user.username}}.</p><hr>
                 </div>
-                <hr>
-                <div class="meetings">
-                    {% if upcomingMeetings %}
-                        <ul>
-                            {% for meeting in upcomingMeetings %}
-                            <li>
-                                <a href="{% url 'editBooking' meeting.id %}">{{ meeting.date }} {{ meeting.room }}</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        <p>No meetings soon!</p>
-                    {% endif %}
-                </div>
+                <h2>
+                    Upcoming Meetings
+                </h2>
+                <p>Click to view and update a meeting.</p>
+                {% if upcomingMeetings %}
+                    <div class="meetingsBox">
+                        {% for meeting in upcomingMeetings %}
+                        <div class="meetingCard">
+                            <a href="{% url 'editBooking' meeting.id %}" class="meetingInstance">{{ meeting.date }}, in Room {{ meeting.room }}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No meetings soon!</p>
+                {% endif %}
             </div>
         </div>
         <script src="{% static 'navbar.js' %}"></script>

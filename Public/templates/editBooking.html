@@ -15,7 +15,10 @@
                     </div>
                     <div class="dropdownContent">
                         <a href="{% url 'settings' %}" class="dropdownItem">Settings</a>
-                        <a href="{% url 'index' %}" class="dropdownItem">Log Out</a>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdownItem" style="width: 100%">Log Out</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -34,6 +37,21 @@
             </aside>
             <div class="contentBox">
                 <h1>Edit Booking</h1>
+                    <form action="{% url 'editBooking' meeting.id %}" method="POST">
+                    {% csrf_token %}
+                    <h2>1. Choose a new day & time</h2>
+                    <p>Type your desired time in the format [day/month/year hour/minute AM/PM].</p>
+                    <p>Alternatively, click on the calendar icon to choose a day and time.</p>
+                        <input type="datetime-local" id="bookingDate" name="bookingDate">
+                    <h2>2. Choose a new room</h2>
+                        <input type="radio" id="room1" name="roomSelection" value="1">
+                        <label for="room1">Room 1</label><br><br>
+                        <input type="radio" id="room2" name="roomSelection" value="2">
+                        <label for="room2">Room 2</label><br><br>
+                        <input type="radio" id="room3" name="roomSelection" value="3">
+                        <label for="room3">Room 3</label><br><br>
+                    <input type="submit" value="Update" class="submitButton">
+                </form>
             </div>
         </div>
         <script src="{% static 'navbar.js' %}"></script>
