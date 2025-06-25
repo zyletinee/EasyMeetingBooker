@@ -12,7 +12,7 @@ You'll be able to:
 You'll only need Python and Django to use this.
 - Install Python from https://www.python.org/downloads/
 - Install pip, a Python installer, from https://pip.pypa.io/en/stable/installation/
-- Download Django 5.2 using `pip install Django`.
+- Download Django 5.2 by running the command `pip install Django` inside of Command Prompt.
 
 To run the website itself, you'll only need a few steps:
 1. Download the full .zip package from the `< > Code` button at the top of the repository.
