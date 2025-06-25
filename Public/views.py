@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import make_aware
-from datetime import datetime
+from datetime import timedelta, timezone
 
 def index(request):
     return render(request, "index.html")
@@ -54,33 +54,47 @@ def settings(request):
 
 @login_required
 def viewBooking(request):
-    return render(request, "viewBooking.html")
+    bookings = Meetings.objects.filter(userID=request.user).order_by('date')
+    return render(request, 'viewBooking.html', {'bookings': bookings})
 
 @login_required
 def book(request):
-    if request.method == "POST":
-        datetime_str = request.POST.get("bookingDate")
-        room = request.POST.get("roomSelection")
-
-        if not datetime_str or not room:
-            messages.error(request, "All fields are required.")
-            return redirect("viewBooking")
-
+    if request.method == 'POST':
+        date_str = request.POST.get('bookingDate')
+        room = request.POST.get('roomSelection')
+        # Checking all fields filled
+        if not date_str or not room:
+            messages.error(request, "Please fill in all fields.")
+            return render(request, 'book.html')
+        
+        # Checking if date information is correct
         try:
-            dt = make_aware(datetime.strptime(datetime_str, "%Y-%m-%dT%H:%M"))
+            bookingDate = timezone.datetime.fromisoformat(date_str)
+            bookingDate = timezone.make_aware(bookingDate)
         except ValueError:
             messages.error(request, "Invalid date format.")
-            return redirect("viewBooking")
+            return render(request, 'book.html')
 
-        Meetings.objects.create(
-            date=dt,
-            room=int(room),
-            userID=request.user 
-        )
-        messages.success(request, "Meeting booked successfully.")
-        return redirect("home")
+        room = int(room)
 
-    return render(request, "book.html")
+        # Check for meetings before or after inputted time
+        beforeMeeting = bookingDate - timedelta(hours=1)
+        afterMeeting = bookingDate + timedelta(hours=1)
+
+        overlap = Meetings.objects.filter(
+            room=room,
+            date__range=(beforeMeeting, afterMeeting)
+        ).exists()
+
+        if overlap:
+            messages.error(request, "This room is already booked within an hour of your selected time.")
+            return render(request, 'book.html')
+
+        # Save the meeting
+        Meetings.objects.create(userID=request.user, date=bookingDate, room=room)
+        messages.success(request, "Booking successful!")
+        return redirect('viewBooking')
+    return render(request, 'book.html')
 
 @login_required
 def editBooking(request, meetingID):

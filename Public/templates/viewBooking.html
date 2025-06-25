@@ -20,7 +20,9 @@
                 </div>
             </div>
             <div class="logoContainer">
-                <img class="logo" src="{% static 'images/EasyBook.png' %}">
+                <a href="{% url 'home'%}">
+                    <img class="logo" src="{% static 'images/EasyBook.png' %}">
+                </a>
             </div>
         </div>
         
@@ -32,6 +34,18 @@
             </aside>
             <div class="contentBox">
                 <h1>View Bookings</h1>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}    
+                    <ul>
+                        {% for booking in bookings %}
+                            <li>{{ booking.date }} - Room {{ booking.room }}</li>
+                        {% empty %}
+                            <li>No bookings found.</li>
+                        {% endfor %}
+                    </ul>           
             </div>
         </div>
         <script src="{% static 'navbar.js' %}"></script>

@@ -20,7 +20,9 @@
                 </div>
             </div>
             <div class="logoContainer">
-                <img class="logo" src="{% static 'images/EasyBook.png' %}">
+                <a href="{% url 'home'%}">
+                    <img class="logo" src="{% static 'images/EasyBook.png' %}">
+                </a>
             </div>
         </div>
         
@@ -37,6 +39,8 @@
                 <form action="{% url 'book' %}" method="POST">
                     {% csrf_token %}
                     <h2>1. Choose a day & time</h2>
+                    <p>Format: day/month/year hour/minute AM/PM</p>
+                    <p>Alternatively, click on the calendar icon to choose a day and time.</p>
                         <input type="datetime-local" id="bookingDate" name="bookingDate">
                     <h2>2. Choose a room</h2>
                         <input type="radio" id="room1" name="roomSelection" value="1">
