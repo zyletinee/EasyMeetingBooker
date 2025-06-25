@@ -35,14 +35,26 @@
                 <a href="{% url 'viewBooking' %}" class="asideButton">View or Edit a Meeting</a>
             </aside>
             <div class="contentBox">
-                    <h1 class="formTitle">
-                        Change Password
-                    </h1>
-                        <label for="oldPass">Old Password</label><br>
-                            <input type="text" id="fname" name="fname" value=""><br>
-                        <label for="newPass">New Password</label><br>
-                            <input type="text" id="lname" name="lname" value=""><br><br>
-                        <input id="loginButton" type="submit" value="Login">
+                <h1>Settings</h1>
+                <form action="{% url 'settings' %}" method="POST">
+                    {% csrf_token %}
+
+                    <h2>Change Password</h2>
+
+                    <label for="old_password">Old Password</label><br>
+                    <input type="password" id="old_password" name="old_password"><br>
+
+                    <label for="new_password">New Password</label><br>
+                    <input type="password" id="new_password" name="new_password"><br><br>
+
+                    <input type="submit" value="Change Password" class="submitButton">
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
             </div>
         </div>
         <script src="{% static 'navbar.js' %}"></script>

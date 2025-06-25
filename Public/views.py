@@ -3,10 +3,9 @@
 from .models import Meetings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.utils.timezone import make_aware
 from datetime import timedelta
 from django.utils import timezone
 
@@ -51,7 +50,24 @@ def loginView(request):
 
 @login_required
 def settings(request):
-    return render(request, "settings.html")
+    if request.method == 'POST':
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+
+        if not old_password or not new_password:
+            messages.error(request, "Please fill in both fields.")
+        elif not request.user.check_password(old_password):
+            messages.error(request, "Old password is incorrect.")
+        elif len(new_password) < 6:
+            messages.error(request, "New password must be at least 6 characters.")
+        else:
+            request.user.set_password(new_password)
+            request.user.save()
+            update_session_auth_hash(request, request.user)
+            messages.success(request, "Password changed successfully.")
+            return redirect('settings')
+
+    return render(request, 'settings.html')
 
 @login_required
 def viewBooking(request):
